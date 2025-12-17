@@ -6,16 +6,17 @@ const getUsers=asyncHandler(async(req,res)=>{
     res.status(200).json(users);
 });
 
-const createUser=asyncHandler(async(req,res)=>{
-    const{name}=req.body;
+const createUser = asyncHandler(async (req, res) => {
+  const { name } = req.body || {};
 
-    if(!name){
-        return res.status(400).json({message:"Name is required"});
-    }
+  if (!name) {
+    return res.status(400).json({ message: "Name is required" });
+  }
 
-    const newUser =await userService.addUser(name);
-    res.status(201).json(newUser); 
+  const newUser = await userService.addUser(name);
+  res.status(201).json(newUser);
 });
+
 
 const removeUser=asyncHandler(async(req,res)=>{
     const id=Number(req.params.id);
